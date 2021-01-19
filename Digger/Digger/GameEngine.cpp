@@ -1,12 +1,10 @@
 #include"GameEngine.h"
-#define csr = const short
-#define csuir = const unsigned int
 
 GameEngine::GameEngine() {
 	gameRunning = true;
 	screenWidth = 1366;
 	screenHeight = 768;
-	frameRate = 2;
+	frameRate = 3;
 }
 
 GameEngine::~GameEngine() {
@@ -35,7 +33,6 @@ bool GameEngine::createWindow(const unsigned short& width, const unsigned short&
 
 unsigned GameEngine::timeLeft(const unsigned& nextTime) {
 	unsigned now;
-
 	now = SDL_GetTicks();
 	if (nextTime <= now)
 		return 0;
@@ -48,18 +45,10 @@ void GameEngine::engineUpdate() {
 	unsigned nextTime = SDL_GetTicks() + tickInterval;
 	while (gameRunning) {
 		update();
-
+		render();
 		SDL_Delay(timeLeft(nextTime));
 		nextTime += tickInterval;
 	}
-}
-
-void GameEngine::update() {
-	//insert game logic here
-}
-
-void GameEngine::render() {
-
 }
 
 void GameEngine::run() {
@@ -71,4 +60,16 @@ void GameEngine::run() {
 
 void GameEngine::exit() {
 	gameRunning = false;
+}
+
+
+void GameEngine::update() {
+}
+
+void GameEngine::render() {
+
+}
+
+void GameEngine::input() {
+
 }
