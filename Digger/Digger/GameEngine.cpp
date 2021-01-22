@@ -4,14 +4,13 @@ GameEngine::GameEngine() {
 	gameRunning = true;
 	screenWidth = 1366;
 	screenHeight = 768;
-	frameRate = 3;
+	frameRate = 120;
 }
 
 GameEngine::~GameEngine() {
 	if (window)
 		SDL_DestroyWindow(window);
 	SDL_Quit();
-
 }
 
 bool GameEngine::createWindow(const unsigned short& width, const unsigned short& height) {
@@ -51,9 +50,12 @@ void GameEngine::engineUpdate() {
 	}
 }
 
+
 void GameEngine::run() {
-	if (createWindow(screenWidth, screenHeight))
+	if (createWindow(screenWidth, screenHeight)){
+		preload();
 		engineUpdate();
+	}
 	else
 		printf("Game could not start. Please try again.");
 }
@@ -62,14 +64,3 @@ void GameEngine::exit() {
 	gameRunning = false;
 }
 
-
-void GameEngine::update() {
-}
-
-void GameEngine::render() {
-
-}
-
-void GameEngine::input() {
-
-}
