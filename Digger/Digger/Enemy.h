@@ -2,11 +2,13 @@
 #include <queue>
 #include <vector>
 typedef std::vector<std::vector<bool>>  GameMap;
+typedef std::queue<std::pair<unsigned int, unsigned int>> tracePath;
 
 class Enemy {
 	private:
 		unsigned x, y;
 		bool alive;
+		tracePath path ;
 	public:
 		Enemy();
 		~Enemy();

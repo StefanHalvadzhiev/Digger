@@ -1,18 +1,18 @@
 #include "GameEngine.h"
 
 
-void GameEngine::update() {
+void GameEngine::update() { // 60 times per second
 
 }
 
-void GameEngine::render() {
+void GameEngine::render() { // 60 times per second
 
 }
 
-void GameEngine::input() {
+void GameEngine::input() { // 60 times per second
 
 }
 
-void GameEngine::preload() {
+void GameEngine::preload() { // loads the initial information for the game
 	Digger.loadNextLevel();
 }

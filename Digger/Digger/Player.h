@@ -1,4 +1,8 @@
 #pragma once
+#include "GameConstants.h"
+static const GameConstants player_constants;
+
+
 class Player {
 	private:
 		unsigned x, y;

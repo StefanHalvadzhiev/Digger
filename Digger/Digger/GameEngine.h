@@ -1,12 +1,17 @@
 #pragma once
+#include "EngineConstants.h"
 #include <SDL.h>
+#include <vector>
 #include <stdio.h>
 #include "Game.h"
+
+const EngineConstants e_constants;
 
 class GameEngine {
 	private:
 		SDL_Window* window = NULL;
 		SDL_Surface* screenSurface = NULL;
+		std::vector<SDL_Texture*> spriteTextures;
 
 		Game Digger;
 

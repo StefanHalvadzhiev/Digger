@@ -2,9 +2,10 @@
 
 GameEngine::GameEngine() {
 	gameRunning = true;
-	screenWidth = 1366;
-	screenHeight = 768;
-	frameRate = 120;
+	screenWidth = e_constants.screenWidth;
+	screenHeight = e_constants.scrrenHeight;
+	frameRate = e_constants.frameRate;
+	SDL_Init(SDL_INIT_EVERYTHING);
 }
 
 GameEngine::~GameEngine() {

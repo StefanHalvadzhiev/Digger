@@ -2,7 +2,7 @@
 
 Player::Player() {
 	ammo = true;
-	lives = 3;
+	lives = player_constants.playerLives;
 	x = 0;
 	y = 0;
 }

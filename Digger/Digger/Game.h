@@ -1,12 +1,20 @@
 #pragma once
+#include "GameConstants.h"
+static const GameConstants g_constants;
+
 #include "Player.h"
 #include "Enemy.h"
+#include <iostream>
+#include <fstream>
+#include <stdlib.h>
 #include <vector>
-typedef std::vector<std::vector<bool>> GameMap;
+#include <cstring>
 
 
 class Game {
 	private:
+		typedef std::vector<std::vector<bool>> GameMap;
+
 		Player player;
 		unsigned maxEnemyCount, currentEnemyCount;
 		unsigned currentLevel;
@@ -23,5 +31,4 @@ class Game {
 		
 		void tracePlayer(bool recalculateWholeRoute);
 		void loadNextLevel();
-		void spawnEnemy();
 };
