@@ -42,3 +42,7 @@ void Game::loadNextLevel() {
 		printf("Error loading level.");
 	}
 }
+
+Player* Game::getPlayer() {
+	return &player;
+}

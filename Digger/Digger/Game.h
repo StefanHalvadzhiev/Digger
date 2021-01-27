@@ -31,4 +31,6 @@ class Game {
 		
 		void tracePlayer(bool recalculateWholeRoute);
 		void loadNextLevel();
+
+		Player* getPlayer();
 };

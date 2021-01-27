@@ -1,6 +1,7 @@
 #pragma once
 #include "EngineConstants.h"
 #include <SDL.h>
+#include <SDL_image.h>
 #include <vector>
 #include <stdio.h>
 #include "Game.h"
@@ -9,6 +10,8 @@ const EngineConstants e_constants;
 
 class GameEngine {
 	private:
+
+		SDL_Renderer* renderer = NULL;
 		SDL_Window* window = NULL;
 		SDL_Surface* screenSurface = NULL;
 		std::vector<SDL_Texture*> spriteTextures;
@@ -25,10 +28,12 @@ class GameEngine {
 		void input();			// keyboard input
 		void preload();			// preloads assets for the game
 		unsigned timeLeft(const unsigned& nextTime);
+
 		bool createWindow(const unsigned short& width, const unsigned short& height);
+		bool createRenderer();
 		void exit();
 
-		
+
 	public:
 		GameEngine();
 		~GameEngine();

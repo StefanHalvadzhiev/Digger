@@ -3,7 +3,7 @@
 GameEngine::GameEngine() {
 	gameRunning = true;
 	screenWidth = e_constants.screenWidth;
-	screenHeight = e_constants.scrrenHeight;
+	screenHeight = e_constants.screenHeight;
 	frameRate = e_constants.frameRate;
 	SDL_Init(SDL_INIT_EVERYTHING);
 }
@@ -11,6 +11,8 @@ GameEngine::GameEngine() {
 GameEngine::~GameEngine() {
 	if (window)
 		SDL_DestroyWindow(window);
+	if (renderer)
+		SDL_DestroyRenderer(renderer);
 	SDL_Quit();
 }
 
@@ -20,7 +22,7 @@ bool GameEngine::createWindow(const unsigned short& width, const unsigned short&
 		return false;
 	}
 	else{
-		window = SDL_CreateWindow("Digger", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
+		window = SDL_CreateWindow("Digger", e_constants.winPosX, e_constants.winPosY, width, height, SDL_WINDOW_SHOWN);
 		if (window == NULL){
 			printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
 			return false;
@@ -51,9 +53,16 @@ void GameEngine::engineUpdate() {
 	}
 }
 
+bool GameEngine::createRenderer() {
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	if (renderer)
+		return true;
+	return false;
+}
+
 
 void GameEngine::run() {
-	if (createWindow(screenWidth, screenHeight)){
+	if (createWindow(screenWidth, screenHeight) && createRenderer()){
 		preload();
 		engineUpdate();
 	}

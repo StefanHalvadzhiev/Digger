@@ -1,5 +1,6 @@
 #pragma once
 #include "GameConstants.h"
+#include "Texture.h"
 static const GameConstants player_constants;
 
 
@@ -10,6 +11,8 @@ class Player {
 		bool ammo;
 
 	public:
+		InGameTexture playerModel;
+
 		Player();
 		~Player();
 		Player(const Player& other) = delete;
