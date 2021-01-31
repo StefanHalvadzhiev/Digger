@@ -46,6 +46,8 @@ void GameEngine::engineUpdate() {
 	unsigned tickInterval = 1000 / frameRate;
 	unsigned nextTime = SDL_GetTicks() + tickInterval;
 	while (gameRunning) {
+		handleKeyboardInput();
+		input();
 		update();
 		render();
 		SDL_Delay(timeLeft(nextTime));
@@ -74,3 +76,28 @@ void GameEngine::exit() {
 	gameRunning = false;
 }
 
+void GameEngine::initKeyInput() {
+	for (unsigned i = 0; i < 322; ++i)
+		keyboard[i] = false;
+}
+
+
+void GameEngine::handleKeyboardInput() {
+	SDL_Event event;
+	while (SDL_PollEvent(&event)) {
+		std::cout << event.key.keysym.sym << std::endl;
+		switch (event.type) {
+		case SDL_QUIT:
+			gameRunning = false; 
+			break;
+		case SDL_KEYDOWN:
+			keyboard[event.key.keysym.sym] = true;
+			break;
+		case SDL_KEYUP:
+			keyboard[event.key.keysym.sym] = false;
+			break;
+		default:
+			break;
+		}
+	} 
+}

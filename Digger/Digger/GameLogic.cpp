@@ -13,7 +13,8 @@ void GameEngine::render() { // 60 times per second
 }
 
 void GameEngine::input() { // 60 times per second
-
+	if (keyboard[SDLK_ESCAPE])
+		exit();
 }
 
 void GameEngine::preload() { // loads the initial information for the game

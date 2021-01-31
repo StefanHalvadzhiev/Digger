@@ -16,7 +16,7 @@ class GameEngine {
 		SDL_Surface* screenSurface = NULL;
 
 		Game Digger;
-
+		bool keyboard[322];
 		unsigned short screenWidth, screenHeight;
 		bool gameRunning;
 		unsigned frameRate;
@@ -31,7 +31,8 @@ class GameEngine {
 		bool createWindow(const unsigned short& width, const unsigned short& height);
 		bool createRenderer();
 		void exit();
-
+		void initKeyInput();
+		void handleKeyboardInput();
 
 	public:
 		GameEngine();
