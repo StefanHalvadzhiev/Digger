@@ -5,7 +5,6 @@
 
 class Enemy {
 	private:
-		InGameTexture model;
 		typedef std::vector<std::vector<bool>>  GameMap;
 		typedef std::queue<std::pair<unsigned int, unsigned int>> tracePath;
 

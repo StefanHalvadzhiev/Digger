@@ -6,18 +6,19 @@ static const GameConstants player_constants;
 
 class Player {
 	private:
-		unsigned x, y;
+		unsigned short x, y;
 		unsigned lives;
 		bool ammo;
 
 	public:
-		InGameTexture playerModel;
 
 		Player();
 		~Player();
 		Player(const Player& other) = delete;
 		Player& operator = (const Player& other) = delete;
 
+
+		void setPosition(const unsigned short positionX, const unsigned short positionY);
 		const unsigned& getX();
 		const unsigned& getY();
 

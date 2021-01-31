@@ -9,18 +9,21 @@ static const GameConstants g_constants;
 #include <stdlib.h>
 #include <vector>
 #include <cstring>
-
+#include "LevelBlock.h"
 
 class Game {
 	private:
-		typedef std::vector<std::vector<bool>> GameMap;
+		typedef std::vector<std::vector<bool>> LogicMap;
+		typedef std::vector<std::vector<LevelBlock>> GameMap;	
 
+		SDL_Renderer* renderer;
 		Player player;
 		unsigned maxEnemyCount, currentEnemyCount;
 		unsigned currentLevel;
 		std::vector<Enemy> enemies;
 
-		GameMap walkableMap;
+		LogicMap walkableMap;
+		GameMap gameMap;
 		
 	public:
 		Game();
@@ -31,6 +34,7 @@ class Game {
 		
 		void tracePlayer(bool recalculateWholeRoute);
 		void loadNextLevel();
-
+		void setRenderer(SDL_Renderer*& renderer);
 		Player* getPlayer();
+		void drawMap();
 };

@@ -7,7 +7,7 @@ InGameTexture::InGameTexture() {
 	texture.y = 0;
 }
 
-void InGameTexture::setImageTexture(const char* path, SDL_Renderer*& renderer) {
+void InGameTexture::setImageTexture(const char* path) {
 	image = IMG_LoadTexture(renderer, path);
 	SDL_QueryTexture(image, NULL, NULL, &width, &height);
 	texture.w = width;
@@ -21,13 +21,17 @@ void InGameTexture::setScale(const float x, const float y) {
 	texture.h = height * scaleY;
 }
 
-void InGameTexture::draw(SDL_Renderer*& renderer) {
+void InGameTexture::draw() {
 	SDL_RenderCopy(renderer, image, NULL, &texture);
 }
 
 void InGameTexture::setCoordinates(const int x, const int y) {
 	texture.x = x;
 	texture.y = y;
+}
+
+void InGameTexture::setRenderer(SDL_Renderer*& renderer) {
+	this->renderer = renderer;
 }
 
 int InGameTexture::getX() {

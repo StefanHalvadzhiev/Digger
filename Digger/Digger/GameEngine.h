@@ -14,7 +14,6 @@ class GameEngine {
 		SDL_Renderer* renderer = NULL;
 		SDL_Window* window = NULL;
 		SDL_Surface* screenSurface = NULL;
-		std::vector<SDL_Texture*> spriteTextures;
 
 		Game Digger;
 

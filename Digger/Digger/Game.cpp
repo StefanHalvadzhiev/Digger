@@ -4,6 +4,7 @@ Game::Game() {
 	currentLevel = 0;
 	maxEnemyCount = g_constants.maxEnemyCount;
 	currentEnemyCount = 0;
+	renderer = NULL;
 }
 
 Game::~Game() {
@@ -29,14 +30,23 @@ void Game::loadNextLevel() {
 		level >> levelWidth >> levelHeight;
 
 		unsigned short currentCell;
-		for (unsigned i = 0; i < levelWidth; ++i){
+		for (unsigned i = 0; i < levelHeight; ++i){
 			std::vector<bool> cellRow;
+			std::vector<LevelBlock> levelBlocks;
 			walkableMap.push_back(cellRow);
-			for (unsigned z = 0; z < levelHeight; ++z) {
+			gameMap.push_back(levelBlocks);
+			for (unsigned z = 0; z < levelWidth; ++z) {
 				level >> currentCell;
+				if (currentCell == 4) {
+					player.setPosition(z, i);
+				}
+				LevelBlock buffer(z * 64, (i + 1) * 64, renderer);
+				buffer.setInitialCondition(currentCell);
+				gameMap[i].push_back(buffer);
 				walkableMap[i].push_back(currentCell);
 			}
 		}
+		level.close();
 	}
 	else {
 		printf("Error loading level.");
@@ -45,4 +55,17 @@ void Game::loadNextLevel() {
 
 Player* Game::getPlayer() {
 	return &player;
+}
+
+
+void Game::setRenderer(SDL_Renderer*& renderer) {
+	this->renderer = renderer;
+}
+
+void Game::drawMap() {
+	for (unsigned i = 0; i < gameMap.size(); ++i) {
+		for (unsigned p = 0; p < gameMap[i].size(); ++p) {
+			gameMap[i][p].draw();
+		}
+	}
 }

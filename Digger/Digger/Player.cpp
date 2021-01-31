@@ -19,3 +19,7 @@ const unsigned& Player::getY() {
 	return y;
 }
 
+void Player::setPosition(const unsigned short positionX, const unsigned short positionY) {
+	x = positionX;
+	y = positionY;
+}

@@ -6,17 +6,17 @@ class InGameTexture {
 	private:
 		SDL_Texture* image = NULL;
 		SDL_Rect texture;
-
+		SDL_Renderer* renderer = NULL;
 		float scaleX, scaleY;
 		int width, height;
 	public:
 		InGameTexture();
-
-		void setImageTexture(const char* path, SDL_Renderer*& renderer);
+		void setImageTexture(const char* path);
 		void setScale(const float x, const float y);
 		void setCoordinates(const int x, const int y);
+		void setRenderer(SDL_Renderer*& renderer);
 
-		void draw(SDL_Renderer*& renderer);
+		void draw();
 
 		int getX();
 		int getY();
@@ -26,4 +26,4 @@ class InGameTexture {
 		int getImageWidth();
 		unsigned getScaleX();
 		unsigned getScaleY();
-};
+};	

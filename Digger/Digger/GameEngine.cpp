@@ -49,7 +49,7 @@ void GameEngine::engineUpdate() {
 		update();
 		render();
 		SDL_Delay(timeLeft(nextTime));
-		nextTime += tickInterval;
+ 		nextTime += tickInterval;
 	}
 }
 
