@@ -15,7 +15,7 @@ class Game {
 	private:
 		typedef std::vector<std::vector<bool>> LogicMap;
 		typedef std::vector<std::vector<LevelBlock>> GameMap;	
-
+		bool paused;
 		SDL_Renderer* renderer;
 		Player player;
 		unsigned maxEnemyCount, currentEnemyCount;
@@ -37,4 +37,11 @@ class Game {
 		void setRenderer(SDL_Renderer*& renderer);
 		Player* getPlayer();
 		void drawMap();
+		void Pause(bool pause);
+		bool isPaused();
+
+		void movePlayerUp();
+		void movePlayerDown();
+		void movePlayerLeft();
+		void movePlayerRight();
 };

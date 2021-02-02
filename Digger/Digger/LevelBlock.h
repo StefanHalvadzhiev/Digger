@@ -5,20 +5,27 @@
 
 class LevelBlock {
 	private:
-		int positionX, positionY;
+		int positionX, positionY; // display position
+		int realX, realY; // logic position
 		bool isSolid;
 		bool hasPlayer;
 		bool hasCoin;
-		bool hasGold;
+		bool hasBagOfCoins;
 		bool hasGem;
 		std::list<Enemy*> enemies;
 	public:
 		InGameTexture levelTexture;
 		InGameTexture gemTexture;
 		InGameTexture coinTexture;
-		InGameTexture goldTexture;
+		InGameTexture bagOfCoinsTexture;
 		InGameTexture enemyTexture;
 		InGameTexture playerTexture;
+
+		void setPlayer(const bool type);
+		void setSolid(const bool type);
+		void setCoin(const bool type);
+		void setBagOfCoins(const bool type);
+		void setGem(const bool type);
 
 		void draw();
 		void setInitialCondition(const unsigned short type);

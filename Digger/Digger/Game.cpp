@@ -5,6 +5,7 @@ Game::Game() {
 	maxEnemyCount = g_constants.maxEnemyCount;
 	currentEnemyCount = 0;
 	renderer = NULL;
+	paused = false;
 }
 
 Game::~Game() {
@@ -28,7 +29,7 @@ void Game::loadNextLevel() {
 	if (level.is_open()) {
 		unsigned levelWidth, levelHeight;
 		level >> levelWidth >> levelHeight;
-
+		player.setMapBorder(levelWidth, levelHeight);
 		unsigned short currentCell;
 		for (unsigned i = 0; i < levelHeight; ++i){
 			std::vector<bool> cellRow;
@@ -39,6 +40,7 @@ void Game::loadNextLevel() {
 				level >> currentCell;
 				if (currentCell == 4) {
 					player.setPosition(z, i);
+					player.setSpawnPoint(z, i);
 				}
 				LevelBlock buffer(z * 64, (i + 1) * 64, renderer);
 				buffer.setInitialCondition(currentCell);
@@ -67,5 +69,78 @@ void Game::drawMap() {
 		for (unsigned p = 0; p < gameMap[i].size(); ++p) {
 			gameMap[i][p].draw();
 		}
+	}
+}
+
+void Game::Pause(bool pause) {
+	paused = pause;
+	if (pause)
+		std::cout << "Paused." << std::endl;
+	else
+		std::cout << "Resumed." << std::endl;
+}
+
+bool Game::isPaused() {
+	return paused;
+}
+
+void Game::movePlayerUp() {
+	unsigned short oldX = player.getX();
+	unsigned short oldY = player.getY();
+
+	if (player.walkUp()) {
+		unsigned short newX = player.getX();
+		unsigned short newY = player.getY();
+		walkableMap[newY][newX] = false;
+		gameMap[newY][newX].setSolid(false);
+		gameMap[newY][newX].setPlayer(true);
+		gameMap[oldY][oldX].setPlayer(false);
+		std::cout << "Walked Up" << std::endl;
+	}
+}
+
+void Game::movePlayerDown() {
+	unsigned short oldX = player.getX();
+	unsigned short oldY = player.getY();
+
+	if (player.walkDown()) {
+		unsigned short newX = player.getX();
+		unsigned short newY = player.getY();
+		walkableMap[newY][newX] = false;
+		gameMap[newY][newX].setSolid(false);
+		gameMap[newY][newX].setPlayer(true);
+		gameMap[oldY][oldX].setPlayer(false);
+		std::cout << "Walked Down" << std::endl;
+
+	}
+}
+
+void Game::movePlayerLeft() {
+	unsigned short oldX = player.getX();
+	unsigned short oldY = player.getY();
+
+	if (player.walkLeft()) {
+		unsigned short newX = player.getX();
+		unsigned short newY = player.getY();
+		walkableMap[newY][newX] = false;
+		gameMap[newY][newX].setSolid(false);
+		gameMap[newY][newX].setPlayer(true);
+		gameMap[oldY][oldX].setPlayer(false);
+		std::cout << "Walked Left" << std::endl;
+	}
+}
+
+void Game::movePlayerRight() {
+	unsigned short oldX = player.getX();
+	unsigned short oldY = player.getY();
+
+	if (player.walkRight()) {
+		unsigned short newX = player.getX();
+		unsigned short newY = player.getY();
+		walkableMap[newY][newX] = false;
+		gameMap[newY][newX].setSolid(false);
+		gameMap[newY][newX].setPlayer(true);
+		gameMap[oldY][oldX].setPlayer(false);
+		std::cout << "Walked Right" << std::endl;
 	}
 }

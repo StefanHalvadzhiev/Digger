@@ -30,6 +30,7 @@ void InGameTexture::setCoordinates(const int x, const int y) {
 	texture.y = y;
 }
 
+
 void InGameTexture::setRenderer(SDL_Renderer*& renderer) {
 	this->renderer = renderer;
 }

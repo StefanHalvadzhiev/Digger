@@ -32,7 +32,7 @@ class GameEngine {
 		bool createRenderer();
 		void exit();
 		void initKeyInput();
-		void handleKeyboardInput();
+		void handleSDLEvents();
 
 	public:
 		GameEngine();
