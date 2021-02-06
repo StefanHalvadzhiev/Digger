@@ -20,12 +20,13 @@ class GameEngine {
 		unsigned short screenWidth, screenHeight;
 		bool gameRunning;
 		unsigned frameRate;
+		unsigned tickInterval;
 
-		void engineUpdate();	// engine update
-		void update();			// game logic update
-		void render();			// displays images
-		void input();			// keyboard input
-		void preload();			// preloads assets for the game
+		void engineUpdate();				// engine update
+		void update(unsigned time);			// game logic update
+		void render();						// displays images
+		void input();						// keyboard input
+		void preload();						// preloads assets for the game
 		unsigned timeLeft(const unsigned& nextTime);
 
 		bool createWindow(const unsigned short& width, const unsigned short& height);

@@ -4,30 +4,40 @@ static const GameConstants g_constants;
 
 #include "Player.h"
 #include "Enemy.h"
+#include "LevelBlock.h"
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
 #include <vector>
+#include <list>
 #include <cstring>
-#include "LevelBlock.h"
 
 class Game {
 	private:
 		typedef std::vector<std::vector<bool>> LogicMap;
 		typedef std::vector<std::vector<LevelBlock>> GameMap;	
+
 		bool paused;
 		SDL_Renderer* renderer;
 		Player player;
+
 		unsigned maxEnemyCount, currentEnemyCount;
+		unsigned short enemySpawnX, enemySpawnY;
+		std::list<Enemy> enemies;
+		unsigned timeSinceLastEnemySpawn;
+
 		unsigned currentLevel;
-		std::vector<Enemy> enemies;
+		
 
 		LogicMap walkableMap;
 		GameMap gameMap;
-		
+		unsigned short levelWidth, levelHeight;
+
+		void innerSpawnEnemy();
+		void updateDrawMapEnemyPositions();
 	public:
 		Game();
-		~Game();
+		~Game() = default;
 
 		Game& operator = (const Game& other) = delete;
 		Game(const Game& other) = delete;
@@ -44,4 +54,10 @@ class Game {
 		void movePlayerDown();
 		void movePlayerLeft();
 		void movePlayerRight();
+
+		void updateGameTime(unsigned time);
+
+		void spawnEnemy();
+		void moveEnemies();
+
 };

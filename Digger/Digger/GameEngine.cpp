@@ -5,6 +5,7 @@ GameEngine::GameEngine() {
 	screenWidth = e_constants.screenWidth;
 	screenHeight = e_constants.screenHeight;
 	frameRate = e_constants.frameRate;
+	tickInterval = 1000 / frameRate;
 	SDL_Init(SDL_INIT_EVERYTHING);
 }
 
@@ -43,12 +44,11 @@ unsigned GameEngine::timeLeft(const unsigned& nextTime) {
 }
 
 void GameEngine::engineUpdate() {
-	unsigned tickInterval = 1000 / frameRate;
 	unsigned nextTime = SDL_GetTicks() + tickInterval;
 	while (gameRunning) {
 		handleSDLEvents();
 		input();
-		update();
+		update(tickInterval);
 		render();
 		SDL_Delay(timeLeft(nextTime));
  		nextTime += tickInterval;
@@ -110,7 +110,7 @@ void GameEngine::handleSDLEvents() {
 			{
 				if (event.window.event == SDL_WINDOWEVENT_RESTORED)
 				{
-					Digger.Pause(false);
+					 Digger.Pause(false);
 					break;
 				}
 			}

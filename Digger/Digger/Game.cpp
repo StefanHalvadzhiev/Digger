@@ -4,18 +4,18 @@ Game::Game() {
 	currentLevel = 0;
 	maxEnemyCount = g_constants.maxEnemyCount;
 	currentEnemyCount = 0;
+	timeSinceLastEnemySpawn = 0;
+	levelWidth = 0;
+	levelHeight = 0;
+	enemySpawnX = 0;
+	enemySpawnY = 0;
 	renderer = NULL;
 	paused = false;
 }
 
-Game::~Game() {
-
-
-}
-
 void Game::tracePlayer(bool recalculateWholeRoute) {
-	for (unsigned i = 0; i < enemies.size(); ++i) 
-		enemies[i].AStarTrace(walkableMap, recalculateWholeRoute, player.getX(), player.getY());
+	for (std::list<Enemy>::iterator it = enemies.begin(); it != enemies.end(); ++it)
+		it->tracePathToPlayer(walkableMap, true, player.getX(), player.getY());
 }
 
 void Game::loadNextLevel() {
@@ -27,7 +27,6 @@ void Game::loadNextLevel() {
 	strcat(levelName, ".txt");
 	level.open(levelName);
 	if (level.is_open()) {
-		unsigned levelWidth, levelHeight;
 		level >> levelWidth >> levelHeight;
 		player.setMapBorder(levelWidth, levelHeight);
 		unsigned short currentCell;
@@ -38,14 +37,26 @@ void Game::loadNextLevel() {
 			gameMap.push_back(levelBlocks);
 			for (unsigned z = 0; z < levelWidth; ++z) {
 				level >> currentCell;
-				if (currentCell == 4) {
-					player.setPosition(z, i);
-					player.setSpawnPoint(z, i);
-				}
+				
 				LevelBlock buffer(z * 64, (i + 1) * 64, renderer);
 				buffer.setInitialCondition(currentCell);
 				gameMap[i].push_back(buffer);
 				walkableMap[i].push_back(currentCell);
+
+				if (currentCell == 4) {
+					player.setPosition(z, i);
+					player.setSpawnPoint(z, i);
+					walkableMap[i][z] = false;
+
+				}
+				if (currentCell == 5) {
+					enemySpawnX = z;
+					enemySpawnY = i;
+					walkableMap[i][z] = false;
+
+
+				}
+
 			}
 		}
 		level.close();
@@ -65,6 +76,7 @@ void Game::setRenderer(SDL_Renderer*& renderer) {
 }
 
 void Game::drawMap() {
+	updateDrawMapEnemyPositions();
 	for (unsigned i = 0; i < gameMap.size(); ++i) {
 		for (unsigned p = 0; p < gameMap[i].size(); ++p) {
 			gameMap[i][p].draw();
@@ -95,7 +107,6 @@ void Game::movePlayerUp() {
 		gameMap[newY][newX].setSolid(false);
 		gameMap[newY][newX].setPlayer(true);
 		gameMap[oldY][oldX].setPlayer(false);
-		std::cout << "Walked Up" << std::endl;
 	}
 }
 
@@ -110,7 +121,6 @@ void Game::movePlayerDown() {
 		gameMap[newY][newX].setSolid(false);
 		gameMap[newY][newX].setPlayer(true);
 		gameMap[oldY][oldX].setPlayer(false);
-		std::cout << "Walked Down" << std::endl;
 
 	}
 }
@@ -126,7 +136,6 @@ void Game::movePlayerLeft() {
 		gameMap[newY][newX].setSolid(false);
 		gameMap[newY][newX].setPlayer(true);
 		gameMap[oldY][oldX].setPlayer(false);
-		std::cout << "Walked Left" << std::endl;
 	}
 }
 
@@ -141,6 +150,37 @@ void Game::movePlayerRight() {
 		gameMap[newY][newX].setSolid(false);
 		gameMap[newY][newX].setPlayer(true);
 		gameMap[oldY][oldX].setPlayer(false);
-		std::cout << "Walked Right" << std::endl;
+	}
+}
+
+
+void Game::updateGameTime(unsigned time) {
+	timeSinceLastEnemySpawn += time;
+}
+
+void Game::spawnEnemy() {
+	if (timeSinceLastEnemySpawn >= g_constants.spawnDelay && currentEnemyCount < maxEnemyCount) {
+		innerSpawnEnemy();
+		timeSinceLastEnemySpawn = 0;
+		currentEnemyCount++;
+	}
+}
+
+void Game::innerSpawnEnemy() {
+	Enemy newEnemy;
+	newEnemy.setInitialPosition(enemySpawnX, enemySpawnY);
+	newEnemy.setBoundaries(levelWidth, levelHeight);
+	enemies.push_back(newEnemy);
+}
+
+void Game::moveEnemies() {
+	for (std::list<Enemy>::iterator it = enemies.begin(); it != enemies.end(); ++it)
+		it->move();
+}
+
+void Game::updateDrawMapEnemyPositions() {
+	for (std::list<Enemy>::iterator it = enemies.begin(); it != enemies.end(); ++it) {
+		gameMap[it->getPrevY()][it->getPrevX()].setEnemy(false);
+		gameMap[it->getY()][it->getX()].setEnemy(true);
 	}
 }

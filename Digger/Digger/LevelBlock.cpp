@@ -30,6 +30,7 @@ LevelBlock::LevelBlock(const int positionX, const int positionY, SDL_Renderer*& 
 	hasCoin = false;
 	hasGem = false;
 	hasPlayer = false;
+	hasEnemy = false;
 }
 
 void LevelBlock::draw() {
@@ -41,7 +42,7 @@ void LevelBlock::draw() {
 		bagOfCoinsTexture.draw();
 	if (hasCoin)
 		coinTexture.draw();
-	if (!enemies.empty())
+	if (hasEnemy)
 		enemyTexture.draw();
 	if (hasPlayer) 
 		playerTexture.draw();
@@ -54,6 +55,7 @@ void LevelBlock::setInitialCondition(const unsigned short type) {
 	// 2 = wall + gem
 	// 3 = wall + coin bag
 	// 4 = player spawn position.
+	// 5 = enemy spawn position. 
 	if (type == 1) {
 		isSolid = true;
 	}
@@ -69,7 +71,6 @@ void LevelBlock::setInitialCondition(const unsigned short type) {
 	if (type == 4){
 		hasPlayer = true;
 	}
-	
 }
 
 
@@ -100,4 +101,8 @@ void LevelBlock::setBagOfCoins(const bool type) {
 
 void LevelBlock::setGem(const bool type) {
 	hasGem = type;
+}
+
+void LevelBlock::setEnemy(const bool type) {
+	hasEnemy = type;
 }

@@ -1,9 +1,11 @@
 #include "GameEngine.h"
 #include "Texture.h"
 
-void GameEngine::update() { // 60 times per second
-	
-
+void GameEngine::update(unsigned time) { // 60 times per second
+	Digger.updateGameTime(time);
+	Digger.spawnEnemy();
+	Digger.tracePlayer(true);
+	Digger.moveEnemies();
 }
 
 void GameEngine::render() { // 60 times per second

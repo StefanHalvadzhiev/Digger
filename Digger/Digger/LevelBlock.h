@@ -1,7 +1,6 @@
 #pragma once
 #include "Texture.h"
 #include "Enemy.h"
-#include <list>
 
 class LevelBlock {
 	private:
@@ -12,7 +11,8 @@ class LevelBlock {
 		bool hasCoin;
 		bool hasBagOfCoins;
 		bool hasGem;
-		std::list<Enemy*> enemies;
+		bool hasEnemy;
+
 	public:
 		InGameTexture levelTexture;
 		InGameTexture gemTexture;
@@ -26,6 +26,7 @@ class LevelBlock {
 		void setCoin(const bool type);
 		void setBagOfCoins(const bool type);
 		void setGem(const bool type);
+		void setEnemy(const bool type);
 
 		void draw();
 		void setInitialCondition(const unsigned short type);
