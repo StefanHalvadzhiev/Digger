@@ -47,8 +47,8 @@ void GameEngine::engineUpdate() {
 	unsigned nextTime = SDL_GetTicks() + tickInterval;
 	while (gameRunning) {
 		handleSDLEvents();
-		input();
 		update(tickInterval);
+		input();
 		render();
 		SDL_Delay(timeLeft(nextTime));
  		nextTime += tickInterval;

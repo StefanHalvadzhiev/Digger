@@ -46,7 +46,6 @@ void LevelBlock::draw() {
 		enemyTexture.draw();
 	if (hasPlayer) 
 		playerTexture.draw();
-
 }
 
 void LevelBlock::setInitialCondition(const unsigned short type) {
@@ -105,4 +104,8 @@ void LevelBlock::setGem(const bool type) {
 
 void LevelBlock::setEnemy(const bool type) {
 	hasEnemy = type;
+}
+
+bool LevelBlock::isGemAvailable() {
+	return hasGem;
 }

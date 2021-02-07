@@ -28,6 +28,10 @@ class LevelBlock {
 		void setGem(const bool type);
 		void setEnemy(const bool type);
 
+
+		bool isGemAvailable();
+
+
 		void draw();
 		void setInitialCondition(const unsigned short type);
 		void passRenderToTextures(SDL_Renderer*& renderer);

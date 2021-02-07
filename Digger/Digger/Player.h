@@ -15,12 +15,12 @@ class Player {
 	public:
 
 		Player();
-		~Player();
 		Player(const Player& other) = delete;
 		Player& operator = (const Player& other) = delete;
 
 
 		void setPosition(const unsigned short positionX, const unsigned short positionY);
+		void moveToSpawn();
 		void setSpawnPoint(const unsigned short sx, const unsigned short sy);
 		const unsigned short& getCX();
 		const unsigned short& getCY();
@@ -33,4 +33,7 @@ class Player {
 		bool walkDown();
 
 		void setMapBorder(const unsigned short mx, const unsigned short my);
+
+		void reduceLives();
+		unsigned int getLives();
 };

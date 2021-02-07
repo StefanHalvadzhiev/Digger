@@ -11,10 +11,6 @@ Player::Player() {
 	spawnY = 0;
 }
 
-Player::~Player() {
-
-}
-
 const unsigned short& Player::getCX() {
 	return x;
 }
@@ -73,4 +69,17 @@ void Player::setMapBorder(const unsigned short mx, const unsigned short my) {
 void Player::setSpawnPoint(const unsigned short sx, const unsigned short sy) {
 	spawnX = sx;
 	spawnY = sy;
+}
+
+unsigned Player::getLives() {
+	return lives;
+}
+
+void Player::moveToSpawn() {
+	x = spawnX;
+	y = spawnY;
+}
+
+void Player::reduceLives() {
+	lives--;
 }

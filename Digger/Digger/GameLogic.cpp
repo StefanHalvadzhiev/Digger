@@ -2,15 +2,23 @@
 #include "Texture.h"
 
 void GameEngine::update(unsigned time) { // 60 times per second
-	Digger.updateGameTime(time);
-	Digger.spawnEnemy();
-	Digger.tracePlayer(true);
-	Digger.moveEnemies();
+	if (!Digger.getGameOver()) {
+		Digger.updateGameTime(time);
+		Digger.spawnEnemy();
+		Digger.tracePlayer(true);
+		Digger.handleEnemyPlayerCollision();
+		Digger.moveEnemies();
+	}
+	else
+		exit();
+	
 }
 
 void GameEngine::render() { // 60 times per second
 	SDL_RenderClear(renderer);
 	Digger.drawMap();
+  	Digger.drawScore();
+	Digger.drawLives();
 	SDL_RenderPresent(renderer);
 }
 
@@ -31,6 +39,7 @@ void GameEngine::input() { // 60 times per second
 
 void GameEngine::preload() { // loads the initial information for the game
 	Digger.setRenderer(renderer);
+	Digger.setLives(renderer);
 	Digger.loadNextLevel();
 }
 

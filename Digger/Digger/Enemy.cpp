@@ -189,23 +189,6 @@ void Enemy::findPath(const GameMap& walkMap, cus& pX, cus& pY) {
 			break;
 
 		}
-		/*else {
-			for (unsigned i = 0; i < bufferMap.size(); ++i) {
-				std::vector<unsigned> row;
-				for (unsigned p = 0; p < bufferMap[i].size(); ++p)
-					std::cout << bufferMap[i][p] << " ";
-				std::cout << std::endl;;
-			}
-			std::cout << std::endl;
-			std::cout << " DID NOT FIND PATH " << std::endl;
-			std::cout << "Player position: " << pX << " " << pY << std::endl;
-			for (unsigned i = 0; i < walkMap.size(); ++i){
-				for (unsigned p = 0; p < walkMap[i].size(); ++p) {
-					std::cout << walkMap[i][p];
-				}
-				std::cout << std::endl;
-			}
-		}*/
 	}
 	
 	Coordinate currentCell(pX, pY);
