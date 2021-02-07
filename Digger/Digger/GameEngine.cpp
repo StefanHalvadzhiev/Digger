@@ -47,9 +47,12 @@ void GameEngine::engineUpdate() {
 	unsigned nextTime = SDL_GetTicks() + tickInterval;
 	while (gameRunning) {
 		handleSDLEvents();
-		update(tickInterval);
-		input();
-		render();
+		if (!Digger.isPaused()) {
+			render();
+			update(tickInterval);
+			input();
+		}
+		
 		SDL_Delay(timeLeft(nextTime));
  		nextTime += tickInterval;
 	}
@@ -102,18 +105,12 @@ void GameEngine::handleSDLEvents() {
 		default:
 			break;
 		}
-		switch (event.window.event)
-		{
+		switch (event.window.event){
 		case SDL_WINDOWEVENT_MINIMIZED:
 			Digger.Pause(true);
-			while (SDL_WaitEvent(&event))
-			{
-				if (event.window.event == SDL_WINDOWEVENT_RESTORED)
-				{
-					 Digger.Pause(false);
-					break;
-				}
-			}
+			break;
+		case SDL_WINDOWEVENT_RESTORED:
+			Digger.Pause(false);
 			break;
 		}
 	} 

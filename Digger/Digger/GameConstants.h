@@ -3,8 +3,8 @@ const struct GameConstants {
 	typedef unsigned int uint;
 	
 	uint playerLives = 3;
-	uint maxEnemyCount = 2;
-	uint spawnDelay = 1000; // 1000 = 1s 
+	uint maxEnemyCount = 4;
+	uint spawnDelay = 300; // 1000 = 1s 
 
 	uint scoreSpacingX = 40; // 40 px;
 	uint scoreSpacingY = 0; 

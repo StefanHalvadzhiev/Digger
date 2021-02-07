@@ -85,12 +85,8 @@ void Game::drawMap() {
 	}
 }
 
-void Game::Pause(bool pause) {
-	paused = pause;
-	if (pause)
-		std::cout << "Paused." << std::endl;
-	else
-		std::cout << "Resumed." << std::endl;
+void Game::Pause(bool state) {
+	paused = state;
 }
 
 bool Game::isPaused() {

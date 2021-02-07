@@ -25,14 +25,16 @@ void GameEngine::render() { // 60 times per second
 void GameEngine::input() { // 60 times per second
 	if (keyboard[SDLK_ESCAPE])
 		exit();
-	if (keyboard[SDLK_w]) 
-		Digger.movePlayerUp();
-	if (keyboard[SDLK_s])
-		Digger.movePlayerDown();
-	if (keyboard[SDLK_a])
-		Digger.movePlayerLeft();
-	if (keyboard[SDLK_d])
-		Digger.movePlayerRight();
+	if (!Digger.isPaused()) {
+		if (keyboard[SDLK_w])
+			Digger.movePlayerUp();
+		if (keyboard[SDLK_s])
+			Digger.movePlayerDown();
+		if (keyboard[SDLK_a])
+			Digger.movePlayerLeft();
+		if (keyboard[SDLK_d])
+			Digger.movePlayerRight();
+	}
 
 	
 }
