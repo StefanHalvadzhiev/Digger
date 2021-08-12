@@ -20,12 +20,11 @@ void Score::init(SDL_Renderer*& renderer) {
 			InGameTexture newDigit;
 			newDigit.setRenderer(renderer);
 			newDigit.setImageTexture(path);
-			newDigit.setCoordinates(x + spacingX * i , y + spacingY * i);
+			newDigit.setCoordinates(x + spacingX * i, y + spacingY * i);
 			digitRow.push_back(newDigit);
 		}
 		digits.push_back(digitRow);
 	}
-
 }
 
 void Score::addScore(unsigned points) {
@@ -43,5 +42,4 @@ void Score::draw() {
 }
 
 void Score::resizeScore() {
-
 }

@@ -44,7 +44,6 @@ void InGameTexture::setImageTexture(const char* path) {
 	texture.h = height;
 }
 
-
 void InGameTexture::draw() {
 	if (renderer == NULL)
 		std::cout << "No renderer" << std::endl;

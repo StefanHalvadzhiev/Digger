@@ -8,19 +8,18 @@
 const GameConstants score_constants;
 
 class Score {
-	private:
-		typedef std::vector<std::vector<InGameTexture>> Digits;
-		unsigned score;
-		unsigned x, y;
-		unsigned spacingX;
-		unsigned spacingY;
-		unsigned short digitCount;
-		Digits digits;
-	public:
-		Score();
-		void draw();
-		void addScore(unsigned points);
-		void init(SDL_Renderer*& renderer);
-		void resizeScore();
-
+private:
+	typedef std::vector<std::vector<InGameTexture>> Digits;
+	unsigned score;
+	unsigned x, y;
+	unsigned spacingX;
+	unsigned spacingY;
+	unsigned short digitCount;
+	Digits digits;
+public:
+	Score();
+	void draw();
+	void addScore(unsigned points);
+	void init(SDL_Renderer*& renderer);
+	void resizeScore();
 };

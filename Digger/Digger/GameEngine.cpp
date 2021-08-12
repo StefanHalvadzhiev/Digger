@@ -22,9 +22,9 @@ bool GameEngine::createWindow(const unsigned short& width, const unsigned short&
 		printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
 		return false;
 	}
-	else{
+	else {
 		window = SDL_CreateWindow("Digger", e_constants.winPosX, e_constants.winPosY, width, height, SDL_WINDOW_SHOWN);
-		if (window == NULL){
+		if (window == NULL) {
 			printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
 			return false;
 		}
@@ -52,9 +52,9 @@ void GameEngine::engineUpdate() {
 			update(tickInterval);
 			input();
 		}
-		
+
 		SDL_Delay(timeLeft(nextTime));
- 		nextTime += tickInterval;
+		nextTime += tickInterval;
 	}
 }
 
@@ -65,9 +65,8 @@ bool GameEngine::createRenderer() {
 	return false;
 }
 
-
 void GameEngine::run() {
-	if (createWindow(screenWidth, screenHeight) && createRenderer()){
+	if (createWindow(screenWidth, screenHeight) && createRenderer()) {
 		preload();
 		engineUpdate();
 	}
@@ -84,13 +83,12 @@ void GameEngine::initKeyInput() {
 		keyboard[i] = false;
 }
 
-
 void GameEngine::handleSDLEvents() {
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
 		case SDL_QUIT:
-			gameRunning = false; 
+			gameRunning = false;
 			break;
 		case SDL_KEYDOWN:
 			if (event.key.keysym.sym >= 322)
@@ -105,7 +103,7 @@ void GameEngine::handleSDLEvents() {
 		default:
 			break;
 		}
-		switch (event.window.event){
+		switch (event.window.event) {
 		case SDL_WINDOWEVENT_MINIMIZED:
 			Digger.Pause(true);
 			break;
@@ -113,5 +111,5 @@ void GameEngine::handleSDLEvents() {
 			Digger.Pause(false);
 			break;
 		}
-	} 
+	}
 }

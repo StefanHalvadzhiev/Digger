@@ -34,7 +34,6 @@ void Enemy::updateTime(unsigned newTime) {
 	currentTime += newTime;
 }
 
-
 void Enemy::move() {
 	if (!path.empty()) {
 		prevX = x;
@@ -55,7 +54,6 @@ void Enemy::copy(const Enemy& other) {
 	mapHeight = other.mapHeight;
 	moveTime = other.moveTime;
 	currentTime = other.currentTime;
-
 }
 
 Enemy::Enemy(const Enemy& other) {
@@ -90,7 +88,6 @@ void Enemy::setBoundaries(cus width, cus height) {
 	mapHeight = height;
 }
 
-
 void Enemy::tracePathToPlayer(const GameMap& walkMap, const bool recalculate, cus& pX, cus& pY) {
 	if (isValidPosition(walkMap, pX, pY)) {
 		if (pX == x && pY == y)
@@ -103,14 +100,13 @@ void Enemy::tracePathToPlayer(const GameMap& walkMap, const bool recalculate, cu
 		else {
 			Coordinate newPair(pX, pY);
 			path.push_back(newPair);
-
 		}
 	}
 }
 
-bool Enemy::isValidPosition(const GameMap& walkMap ,cus& pX, cus& pY) {
+bool Enemy::isValidPosition(const GameMap& walkMap, cus& pX, cus& pY) {
 	if ((pY >= 0) && (pY < mapHeight) && (pX >= 0) && (pX < mapWidth))
-		if(isPassable(walkMap, pX, pY))
+		if (isPassable(walkMap, pX, pY))
 			return true;
 	return false;
 }
@@ -126,7 +122,7 @@ void Enemy::findPath(const GameMap& walkMap, cus& pX, cus& pY) {
 		return;
 	}
 	currentTime = 0;
-	if(pX == x && pY == y)
+	if (pX == x && pY == y)
 		path.push_back(std::make_pair(pX, pY));
 
 	AdjecencyMap bufferMap;
@@ -145,10 +141,8 @@ void Enemy::findPath(const GameMap& walkMap, cus& pX, cus& pY) {
 	int counter = 2;
 	while (!found) {
 		while (!current.empty()) {
-
 			Coordinate newC = current.front();
 			current.pop();
-
 
 			if (isValidPosition(walkMap, newC.first + 1, newC.second) && !bufferMap[newC.second][newC.first + 1]) {// right
 				bufferMap[newC.second][newC.first + 1] = counter;
@@ -159,7 +153,6 @@ void Enemy::findPath(const GameMap& walkMap, cus& pX, cus& pY) {
 				}
 			}
 
-
 			if (isValidPosition(walkMap, newC.first - 1, newC.second) && !bufferMap[newC.second][newC.first - 1]) {// left
 				bufferMap[newC.second][newC.first - 1] = counter;
 				next.push(std::make_pair(newC.first - 1, newC.second));
@@ -169,9 +162,7 @@ void Enemy::findPath(const GameMap& walkMap, cus& pX, cus& pY) {
 				}
 			}
 
-
 			if (isValidPosition(walkMap, newC.first, newC.second - 1) && !bufferMap[newC.second - 1][newC.first]) {// top
-
 				bufferMap[newC.second - 1][newC.first] = counter;
 				next.push(std::make_pair(newC.first, newC.second - 1));
 
@@ -179,9 +170,7 @@ void Enemy::findPath(const GameMap& walkMap, cus& pX, cus& pY) {
 					found = true;
 					break;
 				}
-
 			}
-
 
 			if (isValidPosition(walkMap, newC.first, newC.second + 1) && !bufferMap[newC.second + 1][newC.first]) {// bot
 				bufferMap[newC.second + 1][newC.first] = counter;
@@ -193,19 +182,16 @@ void Enemy::findPath(const GameMap& walkMap, cus& pX, cus& pY) {
 			}
 		}
 
-
 		if (current.empty()) {
 			current = next;
 			counter++;
 		}
 
-
 		if (found) {
 			break;
-
 		}
 	}
-	
+
 	Coordinate currentCell(pX, pY);
 	Coordinate result;
 
@@ -215,7 +201,6 @@ void Enemy::findPath(const GameMap& walkMap, cus& pX, cus& pY) {
 		if (result.first == x && result.second == y)
 			break;
 		path.push_front(result);
-
 
 		currentCell = result;
 	}
@@ -231,7 +216,7 @@ void Enemy::getMinimalPosition(Coordinate& givenCoordinate, Coordinate& result, 
 	unsigned short minVal = 16000;
 	unsigned short minX = 0;
 	unsigned short minY = 0;
-	
+
 	if (isValidPosition(walkMap, givenCoordinate.first + 1, givenCoordinate.second)) { // right
 		if (map[givenCoordinate.second][givenCoordinate.first + 1] < minVal && map[givenCoordinate.second][givenCoordinate.first + 1] != 0) {
 			minVal = map[givenCoordinate.second][givenCoordinate.first + 1];

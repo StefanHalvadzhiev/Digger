@@ -36,7 +36,7 @@ bool Player::walkDown() {
 	if (y + 1 >= mapBorderY)
 		return false;
 	y++;
-	return true;	 
+	return true;
 }
 
 bool Player::walkUp() {
@@ -44,7 +44,6 @@ bool Player::walkUp() {
 		return false;
 	y--;
 	return true;
-
 }
 
 bool Player::walkRight() {

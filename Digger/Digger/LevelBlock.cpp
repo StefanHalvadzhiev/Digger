@@ -4,7 +4,7 @@ LevelBlock::LevelBlock(const int positionX, const int positionY, SDL_Renderer*& 
 	this->positionX = positionX;
 	this->positionY = positionY;
 	passRenderToTextures(renderer);
- 	levelTexture.setImageTexture("images/block.png");
+	levelTexture.setImageTexture("images/block.png");
 	gemTexture.setImageTexture("images/gem.png");
 	coinTexture.setImageTexture("images/coin.png");
 	enemyTexture.setImageTexture("images/enemy.png");
@@ -44,7 +44,7 @@ void LevelBlock::draw() {
 		coinTexture.draw();
 	if (hasEnemy)
 		enemyTexture.draw();
-	if (hasPlayer) 
+	if (hasPlayer)
 		playerTexture.draw();
 }
 
@@ -54,24 +54,22 @@ void LevelBlock::setInitialCondition(const unsigned short type) {
 	// 2 = wall + gem
 	// 3 = wall + coin bag
 	// 4 = player spawn position.
-	// 5 = enemy spawn position. 
+	// 5 = enemy spawn position.
 	if (type == 1) {
 		isSolid = true;
 	}
 	if (type == 2) {
 		isSolid = true;
 		hasGem = true;
-
 	}
-	if (type == 3){
+	if (type == 3) {
 		isSolid = true;
 		hasBagOfCoins = true;
 	}
-	if (type == 4){
+	if (type == 4) {
 		hasPlayer = true;
 	}
 }
-
 
 void LevelBlock::passRenderToTextures(SDL_Renderer*& renderer) {
 	levelTexture.setRenderer(renderer);

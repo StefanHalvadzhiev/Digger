@@ -23,7 +23,6 @@ void Game::tracePlayer(bool recalculateWholeRoute) {
 		it->tracePathToPlayer(walkableMap, true, player.getX(), player.getY());
 }
 
-
 bool Game::loadNextLevel() {
 	currentLevel++;
 	std::ifstream level;
@@ -36,14 +35,14 @@ bool Game::loadNextLevel() {
 		level >> levelWidth >> levelHeight;
 		player.setMapBorder(levelWidth, levelHeight);
 		unsigned short currentCell;
-		for (unsigned i = 0; i < levelHeight; ++i){
+		for (unsigned i = 0; i < levelHeight; ++i) {
 			std::vector<bool> cellRow;
 			std::vector<LevelBlock> levelBlocks;
 			walkableMap.push_back(cellRow);
 			gameMap.push_back(levelBlocks);
 			for (unsigned z = 0; z < levelWidth; ++z) {
 				level >> currentCell;
-				
+
 				LevelBlock buffer(z * 64, (i + 1) * 64, renderer);
 				buffer.setInitialCondition(currentCell);
 				gameMap[i].push_back(buffer);
@@ -53,7 +52,6 @@ bool Game::loadNextLevel() {
 					player.setPosition(z, i);
 					player.setSpawnPoint(z, i);
 					walkableMap[i][z] = false;
-
 				}
 				if (currentCell == 5) {
 					enemySpawnX = z;
@@ -123,7 +121,6 @@ void Game::movePlayerDown() {
 		gameMap[newY][newX].setSolid(false);
 		gameMap[newY][newX].setPlayer(true);
 		gameMap[oldY][oldX].setPlayer(false);
-
 	}
 	checkIfGemIsTaken();
 }
@@ -157,7 +154,6 @@ void Game::movePlayerRight() {
 	}
 	checkIfGemIsTaken();
 }
-
 
 void Game::updateGameTime(unsigned time) {
 	timeSinceLastEnemySpawn += time;
@@ -213,14 +209,13 @@ void Game::setLives(SDL_Renderer*& renderer) {
 }
 
 void Game::drawLives() {
-
 	for (unsigned i = 0; i < player.getLives(); ++i) {
 		lives[i].draw();
 	}
 }
 
 void Game::handleEnemyPlayerCollision() {
-	for(std::list<Enemy>::iterator it = enemies.begin(); it != enemies.end(); ++it){
+	for (std::list<Enemy>::iterator it = enemies.begin(); it != enemies.end(); ++it) {
 		if (it->getX() == player.getX() && it->getY() == player.getY() || it->getPrevX() == player.getX() && it->getPrevY() == player.getY()) {
 			gameMap[player.getY()][player.getX()].setPlayer(false);
 			player.moveToSpawn();
@@ -236,7 +231,6 @@ void Game::handleEnemyPlayerCollision() {
 			currentEnemyCount = 0;
 			break;
 		}
-
 	}
 }
 

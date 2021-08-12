@@ -14,66 +14,64 @@ static const GameConstants g_constants;
 #include <cstring>
 
 class Game {
-	private:
-		typedef std::vector<std::vector<bool>> LogicMap;
-		typedef std::vector<std::vector<LevelBlock>> GameMap;	
-		typedef std::vector<InGameTexture> PlayerLives;
+private:
+	typedef std::vector<std::vector<bool>> LogicMap;
+	typedef std::vector<std::vector<LevelBlock>> GameMap;
+	typedef std::vector<InGameTexture> PlayerLives;
 
-		bool paused;
-		SDL_Renderer* renderer;
-		Player player;
+	bool paused;
+	SDL_Renderer* renderer;
+	Player player;
 
-		unsigned maxEnemyCount, currentEnemyCount;
-		unsigned short enemySpawnX, enemySpawnY;
-		std::list<Enemy> enemies;
-		unsigned timeSinceLastEnemySpawn;
+	unsigned maxEnemyCount, currentEnemyCount;
+	unsigned short enemySpawnX, enemySpawnY;
+	std::list<Enemy> enemies;
+	unsigned timeSinceLastEnemySpawn;
 
-		unsigned currentLevel;
-		
-		PlayerLives lives;
+	unsigned currentLevel;
 
-		LogicMap walkableMap;
-		GameMap gameMap;
-		unsigned short levelWidth, levelHeight;
-		
-		Score score;
+	PlayerLives lives;
 
-		bool gameOver = false;
-		void innerSpawnEnemy();
-		void updateDrawMapEnemyPositions();
-	public:
-		Game();
-		~Game() = default;
+	LogicMap walkableMap;
+	GameMap gameMap;
+	unsigned short levelWidth, levelHeight;
 
-		Game& operator = (const Game& other) = delete;
-		Game(const Game& other) = delete;
-		
-		void tracePlayer(bool recalculateWholeRoute);
-		bool loadNextLevel();
-		void setRenderer(SDL_Renderer*& renderer);
-		void drawMap();
-		void Pause(bool pause);
-		bool isPaused();
+	Score score;
 
-		void checkIfGemIsTaken();
-		void movePlayerUp();
-		void movePlayerDown();
-		void movePlayerLeft();
-		void movePlayerRight();
-		Player* getPlayer();
+	bool gameOver = false;
+	void innerSpawnEnemy();
+	void updateDrawMapEnemyPositions();
+public:
+	Game();
+	~Game() = default;
 
+	Game& operator = (const Game& other) = delete;
+	Game(const Game& other) = delete;
 
-		void updateGameTime(unsigned time);
-		void updateEnemyTime(unsigned time);
+	void tracePlayer(bool recalculateWholeRoute);
+	bool loadNextLevel();
+	void setRenderer(SDL_Renderer*& renderer);
+	void drawMap();
+	void Pause(bool pause);
+	bool isPaused();
 
-		void spawnEnemy();
-		void moveEnemies();
+	void checkIfGemIsTaken();
+	void movePlayerUp();
+	void movePlayerDown();
+	void movePlayerLeft();
+	void movePlayerRight();
+	Player* getPlayer();
 
+	void updateGameTime(unsigned time);
+	void updateEnemyTime(unsigned time);
 
-		void setLives(SDL_Renderer*& renderer);
-		void drawScore();
-		void drawLives();
+	void spawnEnemy();
+	void moveEnemies();
 
-		void handleEnemyPlayerCollision();
-		bool getGameOver();
+	void setLives(SDL_Renderer*& renderer);
+	void drawScore();
+	void drawLives();
+
+	void handleEnemyPlayerCollision();
+	bool getGameOver();
 };

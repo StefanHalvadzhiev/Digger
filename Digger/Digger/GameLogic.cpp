@@ -12,13 +12,12 @@ void GameEngine::update(unsigned time) { // 60 times per second
 	}
 	else
 		exit();
-	
 }
 
 void GameEngine::render() { // 60 times per second
 	SDL_RenderClear(renderer);
 	Digger.drawMap();
-  	Digger.drawScore();
+	Digger.drawScore();
 	Digger.drawLives();
 	SDL_RenderPresent(renderer);
 }
