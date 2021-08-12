@@ -10,7 +10,6 @@ const EngineConstants e_constants;
 
 class GameEngine {
 	private:
-
 		SDL_Renderer* renderer = NULL;
 		SDL_Window* window = NULL;
 		SDL_Surface* screenSurface = NULL;

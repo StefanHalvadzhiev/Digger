@@ -38,7 +38,6 @@ class Game {
 		
 		Score score;
 
-
 		bool gameOver = false;
 		void innerSpawnEnemy();
 		void updateDrawMapEnemyPositions();
@@ -50,7 +49,7 @@ class Game {
 		Game(const Game& other) = delete;
 		
 		void tracePlayer(bool recalculateWholeRoute);
-		void loadNextLevel();
+		bool loadNextLevel();
 		void setRenderer(SDL_Renderer*& renderer);
 		void drawMap();
 		void Pause(bool pause);
@@ -65,6 +64,7 @@ class Game {
 
 
 		void updateGameTime(unsigned time);
+		void updateEnemyTime(unsigned time);
 
 		void spawnEnemy();
 		void moveEnemies();

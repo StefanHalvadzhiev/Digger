@@ -4,6 +4,10 @@
 #include <vector>
 #include <cmath>
 #include "Texture.h"
+#include "GameConstants.h"
+
+const GameConstants enemyConstants;
+
 
 class Enemy {
 	private:
@@ -18,6 +22,10 @@ class Enemy {
 		unsigned short prevX, prevY;
 		unsigned short mapWidth, mapHeight;
 		tracePath path ;
+
+		unsigned moveTime;
+		unsigned currentTime;
+
 
 		void copy(const Enemy& other);
 		bool isValidPosition(const GameMap& walkMap, cus& pX, cus& pY);
@@ -44,4 +52,6 @@ class Enemy {
 		unsigned short getPrevY();
 		unsigned short getX();
 		unsigned short getY();
+
+		void updateTime(unsigned newTime);
 };

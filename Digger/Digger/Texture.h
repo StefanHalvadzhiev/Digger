@@ -10,14 +10,14 @@ class InGameTexture {
 		float scaleX, scaleY;
 		int width, height;
 		void copy(const InGameTexture& other);
-	public:
+	public:		
+		void setRenderer(SDL_Renderer*& renderer);
 		InGameTexture();
 		InGameTexture(const InGameTexture& other);
 		InGameTexture& operator =(const InGameTexture& other);
 		void setImageTexture(const char* path);
 		void setScale(const float x, const float y);
 		void setCoordinates(const int x, const int y);
-		void setRenderer(SDL_Renderer*& renderer);
 
 		void draw();
 

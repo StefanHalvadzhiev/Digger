@@ -4,6 +4,7 @@
 void GameEngine::update(unsigned time) { // 60 times per second
 	if (!Digger.getGameOver()) {
 		Digger.updateGameTime(time);
+		Digger.updateEnemyTime(time);
 		Digger.spawnEnemy();
 		Digger.tracePlayer(true);
 		Digger.handleEnemyPlayerCollision();
@@ -35,13 +36,11 @@ void GameEngine::input() { // 60 times per second
 		if (keyboard[SDLK_d])
 			Digger.movePlayerRight();
 	}
-
-	
 }
 
 void GameEngine::preload() { // loads the initial information for the game
 	Digger.setRenderer(renderer);
 	Digger.setLives(renderer);
-	Digger.loadNextLevel();
+	if (!Digger.loadNextLevel())
+		exit();
 }
-

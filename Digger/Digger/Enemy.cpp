@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include <iostream>
 
 Enemy::Enemy() {
 	x = 0;
@@ -7,6 +8,8 @@ Enemy::Enemy() {
 	prevY = 0;
 	mapWidth = 0;
 	mapHeight = 0;
+	moveTime = enemyConstants.enemyMoveTime;
+	currentTime = 0;
 }
 
 Enemy::Enemy(cus x, cus y) {
@@ -27,6 +30,11 @@ void Enemy::setPosition(cus x, cus y) {
 	this->y = y;
 }
 
+void Enemy::updateTime(unsigned newTime) {
+	currentTime += newTime;
+}
+
+
 void Enemy::move() {
 	if (!path.empty()) {
 		prevX = x;
@@ -45,6 +53,9 @@ void Enemy::copy(const Enemy& other) {
 	path = other.path;
 	mapWidth = other.mapWidth;
 	mapHeight = other.mapHeight;
+	moveTime = other.moveTime;
+	currentTime = other.currentTime;
+
 }
 
 Enemy::Enemy(const Enemy& other) {
@@ -111,6 +122,10 @@ bool Enemy::hasFoundPlayerCell(cus& pX, cus& pY, cus& eX, cus& eY) {
 }
 
 void Enemy::findPath(const GameMap& walkMap, cus& pX, cus& pY) {
+	if (currentTime < moveTime) {
+		return;
+	}
+	currentTime = 0;
 	if(pX == x && pY == y)
 		path.push_back(std::make_pair(pX, pY));
 

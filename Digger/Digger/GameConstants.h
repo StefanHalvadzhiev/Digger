@@ -2,9 +2,11 @@
 const struct GameConstants {
 	typedef unsigned int uint;
 	
-	uint playerLives = 3;
+	uint playerLives = 30;
+
 	uint maxEnemyCount = 4;
 	uint spawnDelay = 300; // 1000 = 1s 
+	uint enemyMoveTime = 200;
 
 	uint scoreSpacingX = 40; // 40 px;
 	uint scoreSpacingY = 0; 
@@ -16,6 +18,6 @@ const struct GameConstants {
 	uint lifeHorizontalSpacing = 40;
 
 	uint scoreDigitCount = 6;
-	uint gemScore = 250;
+	uint gemScore = 250  ;
 	bool hasInitialAmmo = true;
 };

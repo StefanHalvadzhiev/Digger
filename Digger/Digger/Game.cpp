@@ -13,12 +13,18 @@ Game::Game() {
 	paused = false;
 }
 
+void Game::updateEnemyTime(unsigned enemyTimeUpdate) {
+	for (std::list<Enemy>::iterator it = enemies.begin(); it != enemies.end(); ++it)
+		it->updateTime(enemyTimeUpdate);
+}
+
 void Game::tracePlayer(bool recalculateWholeRoute) {
 	for (std::list<Enemy>::iterator it = enemies.begin(); it != enemies.end(); ++it)
 		it->tracePathToPlayer(walkableMap, true, player.getX(), player.getY());
 }
 
-void Game::loadNextLevel() {
+
+bool Game::loadNextLevel() {
 	currentLevel++;
 	std::ifstream level;
 	char buffer[33];
@@ -53,23 +59,21 @@ void Game::loadNextLevel() {
 					enemySpawnX = z;
 					enemySpawnY = i;
 					walkableMap[i][z] = false;
-
-
 				}
-
 			}
 		}
 		level.close();
+		return true;
 	}
 	else {
-		printf("Error loading level.");
+		printf("Level does not exist or file is corrupt. Terminating game.");
+		return false;
 	}
 }
 
 Player* Game::getPlayer() {
 	return &player;
 }
-
 
 void Game::setRenderer(SDL_Renderer*& renderer) {
 	this->renderer = renderer;
@@ -115,10 +119,10 @@ void Game::movePlayerDown() {
 	if (player.walkDown()) {
 		unsigned short newX = player.getX();
 		unsigned short newY = player.getY();
-walkableMap[newY][newX] = false;
-gameMap[newY][newX].setSolid(false);
-gameMap[newY][newX].setPlayer(true);
-gameMap[oldY][oldX].setPlayer(false);
+		walkableMap[newY][newX] = false;
+		gameMap[newY][newX].setSolid(false);
+		gameMap[newY][newX].setPlayer(true);
+		gameMap[oldY][oldX].setPlayer(false);
 
 	}
 	checkIfGemIsTaken();
